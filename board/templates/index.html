@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <!-- nav bar -->
+      <nav>
+        <a href="home">home</a>
+        <a href="#book">bookings</a>
+        <a href="signup">signup</a>
+      </nav>
+      <div class="icon">
+        <i class="fas fas-search" id="search-btn"></i>
+        <i class="fas fas-user" id="user-btn"></i>
+      </div>
+
+      <form action=" " class="search-bar-container">
+        <input type="search" id="search-bar" placeholder="Search here..." />
+        <label for="search-bar" class="fas fas-search"></label>
+      </form>
+      <input type="submit" value="Submit" />
+    </header>
+
+    <!-- banner info -->
+    <!-- <div id="banner">
+      <img id="image1" src="/images/boston.jpg" alt="Image 1" />
+      <img
+        id="image2"
+        src="/images/Dallas.jpg"
+        alt="Image 2"
+        style="display: none"
+      />
+      <img
+        id="image3"
+        src="/images/LA.jpg"
+        alt="Image 3"
+        style="display: none"
+      />
+      <button onclick="nextImage()">Next</button>
+      <a href="book_now.html">Book Now!</a>
+    </div> -->
+    <!-- Location Rating -->
+    <div id="book">
+      <form action="{{ url_for('add_trip') }}" method="post">
+        <label for="location">Where'd you go?</label>
+        <input type="text" id="location" name="location" required /><br /><br />
+
+        <label for="arrival_date">Arrival Date:</label>
+        <input
+          type="date"
+          id="arrival_date"
+          name="arrival_date"
+          required
+        /><br /><br />
+
+        <label for="departure_date">Departure Date:</label>
+        <input
+          type="date"
+          id="departure_date"
+          name="departure_date"
+          required
+        /><br /><br />
+
+        <label for="adults">Adults:</label>
+        <input
+          type="number"
+          id="adults"
+          name="adults"
+          min="1"
+          value="1"
+          required
+        /><br /><br />
+
+        <label for="children">Children:</label>
+        <input
+          type="number"
+          id="Children"
+          name="Children"
+          min="0"
+          value="0"
+        /><br /><br />
+
+        <label for="children">Rating:</label>
+        <input
+          type="number"
+          id="Rating"
+          name="Rating"
+          min="0"
+          value="0"
+        /><br /><br />
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+
+    <!-- functionality of image loops -->
+    <script>
+      var currentImage = 1;
+      var totalImages = 3;
+
+      function nextImage() {
+        document.getElementById("image" + currentImage).style.display = "none";
+        currentImage = (currentImage % totalImages) + 1;
+        document.getElementById("image" + currentImage).style.display = "block";
+      }
+    </script>
+  </body>
+</html>
