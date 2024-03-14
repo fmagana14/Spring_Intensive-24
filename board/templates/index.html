@@ -95,9 +95,68 @@
         <input type="submit" value="Submit" />
       </form>
     </div>
-<!-- put in for loop to display results add a delete ability -->
+    <!-- put in for loop to display results add a delete ability -->
+    <div id="trips">
+      <h2>All Trips</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Location</th>
+            <th>Arrival Date</th>
+            <th>Departure Date</th>
+            <th>Adults</th>
+            <th>Children</th>
+            <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for trip in trips %}
+          <tr>
+            <td>{{ trip.location }}</td>
+            <td>{{ trip.arrival_date }}</td>
+            <td>{{ trip.departure_date }}</td>
+            <td>{{ trip.adults }}</td>
+            <td>{{ trip.children }}</td>
+            <td>{{ trip.rating }}</td>
+            <td>
+              <form action="/delete_trip/{{ trip._id }}" method="post" onsubmit="return confirm('Are you sure you want to delete this trip?')">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit">Delete</button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <!-- discription box -->
+    <div id="description-section">
+      <button id="add-description-btn" onclick="addDescription()">Add Description</button>
+    </div>
+    <!-- delete button -->
+    <!-- <script>
+      function deleteTrip(trip_Id) {
+        if (confirm("Are you sure you want to delete this trip?")) {
+          fetch("/delete_trip/" + trip_Id, {
+            method: "DELETE",
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              location.reload(); // Refresh the page after deletion
+            })
+            .catch((error) => {
+              console.error(
+                "There was a problem with your fetch operation:",
+                error
+              );
+            });
+        }
+      }
+    </script> -->
+
     <!-- functionality of image loops -->
-    <script>
+    <!-- <script>
       var currentImage = 1;
       var totalImages = 3;
 
@@ -106,6 +165,7 @@
         currentImage = (currentImage % totalImages) + 1;
         document.getElementById("image" + currentImage).style.display = "block";
       }
-    </script>
+    </script> -->
+    <script src="/script.js"></script>
   </body>
 </html>

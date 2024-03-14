@@ -24,6 +24,8 @@ def add_trip():
     adults = int(request.form['adults'])
     children = int(request.form['children'])
     rating = int(request.form['rating'])
+    description = request.form['description'] 
+
 
     trip_data = {
         'location': location,
@@ -31,11 +33,19 @@ def add_trip():
         'departure_date': departure_date,
         'adults': adults,
         'children': children,
-        'rating': rating
+        'rating': rating,
+        'description': description
     }
     all_trips.insert_one(trip_data)
 
     return redirect(url_for('index'))
+
+@app.route('/delete_trip/<trip_id>', methods=['POST', 'DELETE'])
+def delete_trip(trip_id):
+    if request.method == 'POST' or request.method == 'DELETE':
+        all_trips.delete_one({'_id': trip_id})
+    return redirect(url_for('index'))
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
