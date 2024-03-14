@@ -7,12 +7,13 @@ app = Flask(__name__)
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client['trip_database']
-collection = db['trips']
+all_trips = db['trips']
 
 # Routes
 @app.route('/')
 def index():
-    trips = collection.find()
+    trips = all_trips.find()
+    print(trips)
     return render_template('index.html', trips=trips)
 
 @app.route('/add_trip', methods=['POST'])
@@ -32,7 +33,7 @@ def add_trip():
         'children': children,
         'rating': rating
     }
-    collection.insert_one(trip_data)
+    all_trips.insert_one(trip_data)
 
     return redirect(url_for('index'))
 
