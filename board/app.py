@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
@@ -24,7 +25,6 @@ def add_trip():
     adults = int(request.form['adults'])
     children = int(request.form['children'])
     rating = int(request.form['rating'])
-    description = request.form['description'] 
 
 
     trip_data = {
@@ -34,7 +34,6 @@ def add_trip():
         'adults': adults,
         'children': children,
         'rating': rating,
-        'description': description
     }
     all_trips.insert_one(trip_data)
 
@@ -43,7 +42,7 @@ def add_trip():
 @app.route('/delete_trip/<trip_id>', methods=['POST', 'DELETE'])
 def delete_trip(trip_id):
     if request.method == 'POST' or request.method == 'DELETE':
-        all_trips.delete_one({'_id': trip_id})
+        all_trips.delete_one({'_id': ObjectId(trip_id)})
     return redirect(url_for('index'))
 
 
