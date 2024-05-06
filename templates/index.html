@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='./styles.css')}}"
+    />
+  </head>
+  <body>
+    <header>
+      <!-- nav bar -->
+      <nav>
+        <a href="home">home</a>
+        <a href="#book">Your Trips</a>
+        <a href="signup">signup</a>
+      </nav>
+    </header>
+
+    <!-- Location Rating -->
+    <div id="book">
+      <form action="{{ url_for('add_trip') }}" method="post">
+        <label for="location">Where'd you go?</label>
+        <input type="text" id="location" name="location" required /><br /><br />
+
+        <label for="arrival_date">Arrival Date:</label>
+        <input
+          type="date"
+          id="arrival_date"
+          name="arrival_date"
+          required
+        /><br /><br />
+
+        <label for="departure_date">Departure Date:</label>
+        <input
+          type="date"
+          id="departure_date"
+          name="departure_date"
+          required
+        /><br /><br />
+
+        <label for="adults">Adults:</label>
+        <input
+          type="number"
+          id="adults"
+          name="adults"
+          min="1"
+          value="1"
+          required
+        /><br /><br />
+
+        <label for="children">Children:</label>
+        <input
+          type="number"
+          id="children"
+          name="children"
+          min="0"
+          value="0"
+        /><br /><br />
+
+        <label for="children">Rating:</label>
+        <input
+          type="number"
+          id="rating"
+          name="rating"
+          min="0"
+          value="0"
+        /><br /><br />
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+    <!-- put in for loop to display results add a delete ability -->
+    <div id="trips">
+      <h2>All Trips</h2>
+      <!-- sorting button -->
+      <!-- <div>
+        <button id="remove" onclick="sortTrips('oldest')">Oldest to Newest</button>  
+        <button id="remove" onclick="sortTrips('newest')">Newest to Oldest</button>
+    </div> -->
+      <table>
+        <thead>
+          <tr>
+            <th>Location</th>
+            <th>Arrival Date</th>
+            <th>Departure Date</th>
+            <th>Adults</th>
+            <th>Children</th>
+            <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for trip in trips %}
+          <tr>
+            <td>{{ trip.location }}</td>
+            <td>{{ trip.arrival_date }}</td>
+            <td>{{ trip.departure_date }}</td>
+            <td>{{ trip.adults }}</td>
+            <td>{{ trip.children }}</td>
+            <td>{{ trip.rating }}</td>
+            <td>
+              <form
+                action="{{ url_for('delete_trip', trip_id=trip['_id']) }}"
+                method="post"
+              >
+                <input type="hidden" name="_method" value="DELETE" />
+                <button type="submit" id="remove">Delete</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <!-- sort button function -->
+    <script></script>
+
+    <!-- delete button function -->
+    <script></script>
+    <!-- <script src="script.js"></script> -->
+  </body>
+</html>
